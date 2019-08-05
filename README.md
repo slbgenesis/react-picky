@@ -2,17 +2,6 @@
 We are Implementing ok and cancel button and search customization.
 This approach is fine for smaller lists. When you have options for 20, 30, 100+ options that the use can select, it becomes unmanigable.
 
-For example you have a internal staff mailing list. You want to mail all staff in a department (30 employees). You select all. That would be 30 tags taking unneccessary space.
-
-This is a multiselect with checkboxes, a select all option, and a filter. Along a similar vein as David Stutz's Bootstrap Multiselect. There is a port of that library to react with Skratchdot's React Bootstrap Multiselect. However I don't want a dependency on jQuery. If you are already using jQuery that might be an alternative for you.
-
-If you like the tag list like React-Select, then that would be a great option for you. It's a really great, well-tested library. Give it a look.
-
-You can also achieve the same result with a great deal of flexibility using Paypal's Downshift.
-
-More on React Select
-React Select V2 is pretty incredible, you can replace and provide custom functionality for almost every element of the select component. With a little work you could rebuild Picky from the components of React Select, take a look at React Select: Experimental, the Popout example is close to what Picky does. You could even build a date picker in React Select...HOW COOL IS THAT!
-
 What Picky is
 Picky provides a medium amount of flexibility, you can custom render: Options, List (useful for creating a virtualized menu), and SelectAll. Any further customisation and it's a little out of scope for Picky. It was built with a common pattern in mind so you can get up and running with little-to-no work. If you need Picky to be more flexible, I'm happy to take a PR if it would benefit the rest of the community.
 
@@ -24,80 +13,8 @@ Installation
   npm install --save react-picky
   # or
   yarn add react-picky
-Screenshots
-Single Select
-Single select
-
-Multi Select
-Multi select
-
-Usage
-Basic example
-import Picky from 'react-picky';
-import 'react-picky/dist/picky.css'; // Include CSS
- 
-<Picky
-  options={[1, 2, 3, 4, 5]}
-  value={[]}
-  multiple={true}
-  includeSelectAll={true}
-  includeFilter={true}
-  onChange={values => console.log(values)}
-  dropdownHeight={600}
-/>;
-Sandboxes
-Basic multiselect and single select
-Edit qq1689zk3q
-
-Custom rendering
-Edit mmpq6z7lr8
-
-Props
-Picky.defaultProps = {
-  numberDisplayed: 3,
-  options: [],
-  filterDebounce: 150,
-  dropdownHeight: 300,
-  onChange: () => {},
-  tabIndex: 0,
-  keepOpen: true,
-  selectAllText: 'Select all',
-};
-Picky.propTypes = {
-  placeholder: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.object,
-  ]),
-  numberDisplayed: PropTypes.number,
-  multiple: PropTypes.bool,
-  options: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
-  open: PropTypes.bool,
-  includeSelectAll: PropTypes.bool,
-  includeFilter: PropTypes.bool,
-  filterDebounce: PropTypes.number,
-  dropdownHeight: PropTypes.number,
-  onFiltered: PropTypes.func,
-  onOpen: PropTypes.func,
-  onClose: PropTypes.func,
-  valueKey: PropTypes.string,
-  labelKey: PropTypes.string,
-  render: PropTypes.func,
-  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  keepOpen: PropTypes.bool,
-  manySelectedPlaceholder: PropTypes.string,
-  allSelectedPlaceholder: PropTypes.string,
-  selectAllText: PropTypes.string,
-  renderSelectAll: PropTypes.func,
-  defaultFocusFilter: PropTypes.bool,
-  className: PropTypes.string,
-  renderList: PropTypes.func,
-  getFilterValue: PropTypes.func,
-};
-Prop descriptions
+  
+  Prop descriptions
 placeholder - Default message when no items are selected.
 value - The selected value(s), array if multiple is true. Not needed if using as an uncontolled component
 numberDisplayed - Then number of selected options displayed until it turns into '(selected count) selected'.
@@ -127,48 +44,6 @@ filterPlaceholder - Override the filter placeholder. Defaults to 'Filter...'
 getFilterValue - Will provide the input value of filter to the picky dropdown, so that if we have a larger list of options then we can only supply the matching options based on this value.
 caseSensitiveFilter - If true options will be returned when they match case
 buttonProps - Additional props to apply the the button component, useful for supplying class names.
-Custom rendering
-Items
-You can render out custom items for the dropdown.
-
-Example
-
-<Picky
-  value={this.state.arrayValue}
-  options={bigList}
-  onChange={this.selectMultipleOption}
-  open={false}
-  valueKey="id"
-  labelKey="name"
-  multiple={true}
-  includeSelectAll={true}
-  includeFilter={true}
-  getFilterValue={this.getFilterValue}
-  dropdownHeight={600}
-  render={({
-    style,
-    isSelected,
-    item,
-    selectValue,
-    labelKey,
-    valueKey,
-    multiple,
-  }) => {
-    return (
-      <li
-        style={style} // required
-        className={isSelected ? 'selected' : ''} // required to indicate is selected
-        key={item[valueKey]} // required
-        onClick={() => selectValue(item)}
-      >
-        {/* required to select item */}
-        <input type="checkbox" checked={isSelected} readOnly />
-        <span style={{ fontSize: '30px' }}>{item[labelKey]}</span>
-      </li>
-    );
-  }}
-/>
-The render callback gets called with the following properties: style, isSelected, item, labelKey, valueKey, selectValue, multiple
 
 isSelected - boolean - true if item is selected. Use this for styling accordingly.
 item - object | number | string - The item to render.
@@ -176,76 +51,4 @@ labelKey - Used to get the label if item is an object
 valueKey - Used to get the value if item is an object, good for keys.
 selectValue - function(item) - Selects the item on click
 multiple - boolean - Indicates if is a multiselect.
-Note
 
-If your rendered item affects the height of the item in anyway. Supply itemHeight to Picky.
-If you wish to show a radio button or a checkbox, be sure to add readOnly prop to the input.
-Select All
-<Picky
-  // ...
-  renderSelectAll={({
-    filtered,
-    tabIndex,
-    allSelected,
-    toggleSelectAll,
-    multiple,
-  }) => {
-    // Don't show if single select or items have been filtered.
-    if (multiple && !filtered) {
-      return (
-        <div
-          tabIndex={tabIndex}
-          role="option"
-          className={allSelected ? 'option selected' : 'option'}
-          onClick={toggleSelectAll}
-          onKeyPress={toggleSelectAll}
-        >
-          <h1>SELECT ALL</h1>
-        </div>
-      );
-    }
-  }}
-/>
-Gets called with the following properties:
-
-filtered: boolean - true if items have been filtered.
-allSelected: boolean true if all items are selected.
-toggleSelectAll: function selects or deselects all items.
-tabIndex: number used for specifying tab index.
-multiple: boolean true if multiselect.
-Render List
-<Picky
-  value={this.state.arrayValue}
-  options={bigList}
-  onChange={this.selectMultipleOption}
-  open={true}
-  valueKey="id"
-  labelKey="name"
-  multiple={true}
-  includeSelectAll={true}
-  includeFilter={true}
-  dropdownHeight={600}
-  manySelectedPlaceholder={dynamicPlaceholder}
-  defaultFocusFilter={true}
-  renderList={({ items, selected, multiple, selectValue, getIsSelected }) =>
-    items.map(item => (
-      <li key={item.id} onClick={() => selectValue(item)}>
-        {getIsSelected(item) ? <strong>{item.name}</strong> : item.name}
-      </li>
-    ))
-  }
-/>
-This is an example of a custom rendered list.
-
-styled-components support
-Support is pretty basic by allowing a className prop to <Picky>, so as a side effect you can add a custom class to the core Picky for easier style overrides.
-
-Usage
-
-const Select = styled(Picky)`
-  background-color: #ff0000;
-  .picky__dropdown,
-  .option {
-    font-size: 2em;
-  }
-`;
