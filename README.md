@@ -2,19 +2,19 @@
 We are Implementing ok and cancel button and search customization.
 This approach is fine for smaller lists. When you have options for 20, 30, 100+ options that the use can select, it becomes unmanigable.
 
-What Picky is
+What Picky is:
 Picky provides a medium amount of flexibility, you can custom render: Options, List (useful for creating a virtualized menu), and SelectAll. Any further customisation and it's a little out of scope for Picky. It was built with a common pattern in mind so you can get up and running with little-to-no work. If you need Picky to be more flexible, I'm happy to take a PR if it would benefit the rest of the community.
 
-Peer Dependencies
+Peer Dependencies:
  "prop-types": "^15.6.0",
  "react": "^16.5.0",
  "react-dom": "^16.5.0"
-Installation
+Installation:
   npm install --save react-picky
   # or
   yarn add react-picky
   
-  Prop descriptions
+  Prop descriptions:
 placeholder - Default message when no items are selected.
 value - The selected value(s), array if multiple is true. Not needed if using as an uncontolled component
 numberDisplayed - Then number of selected options displayed until it turns into '(selected count) selected'.
