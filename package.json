@@ -70,7 +70,7 @@
     "rollup-plugin-jsx": "^1.0.3",
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-uglify": "^6.0.2",
-    "semantic-release": "^15.13.3"
+    "semantic-release": "^17.2.3"
   },
   "homepage": "https://github.com/Aidurber/react-picky#readme",
   "jest": {
